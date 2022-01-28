@@ -67,6 +67,7 @@ const App: FunctionalComponent = () => {
 
   const onPhysKeyboard = useCallback(
     (event: KeyboardEvent): void => {
+      event.preventDefault();
       const key = event.key.toUpperCase();
       if (ALPHABET.indexOf(key) != -1) onKeyboardClick(key);
     },
