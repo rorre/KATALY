@@ -5,15 +5,16 @@ import { Keyboard } from './keyboard';
 import { useEffect, useState, useCallback } from 'preact/hooks';
 import Modal from './general/modal';
 
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import Loader from './general/loader';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   .split('')
   .concat(['BACKSPACE', 'ENTER']);
 
+const baseDatetime = DateTime.fromISO('2022-01-28T00:00:00.000+07:00');
+
 function getDaysDifference(): number {
-  const baseDatetime = DateTime.fromISO('2022-01-28T00:00:00.000+07:00');
   const difference = baseDatetime.diffNow('days');
   const days = Math.floor(Math.abs(difference.days));
   return days;
@@ -28,6 +29,8 @@ const App: FunctionalComponent = () => {
   const [hasWon, setWon] = useState(false);
   const [showModal, setShow] = useState(false);
   const [isBooting, setBooting] = useState(true);
+
+  const [nextWordTime, setNextWordTime] = useState(Duration.fromMillis(0));
 
   const validate = useCallback((): void => {
     if (current.length != 5 || hasWon) return;
@@ -67,9 +70,11 @@ const App: FunctionalComponent = () => {
 
   const onPhysKeyboard = useCallback(
     (event: KeyboardEvent): void => {
-      event.preventDefault();
       const key = event.key.toUpperCase();
-      if (ALPHABET.indexOf(key) != -1) onKeyboardClick(key);
+      if (ALPHABET.indexOf(key) != -1) {
+        onKeyboardClick(key);
+        event.preventDefault();
+      }
     },
     [onKeyboardClick]
   );
@@ -122,7 +127,16 @@ const App: FunctionalComponent = () => {
 
   useEffect(() => {
     document.addEventListener('keydown', onPhysKeyboard);
-    return (): void => document.removeEventListener('keydown', onPhysKeyboard);
+    const intervalCode = setInterval(() => {
+      setNextWordTime(
+        baseDatetime.plus({ days: 1 }).diffNow(['hours', 'minutes', 'second'])
+      );
+    }, 1000);
+
+    return (): void => {
+      document.removeEventListener('keydown', onPhysKeyboard);
+      clearInterval(intervalCode);
+    };
   }, [onPhysKeyboard]);
 
   useEffect(() => {
@@ -226,6 +240,13 @@ const App: FunctionalComponent = () => {
                     >
                       Entri KBBI
                     </a>
+                    <p className="font-sans text-white">
+                      Kata selanjutnya dalam
+                    </p>
+                    <p className="font-assistant text-xl font-bold text-white">
+                      {nextWordTime.hours}:{nextWordTime.minutes}:
+                      {Math.floor(nextWordTime.seconds)}
+                    </p>
                   </div>
                 )}
               </div>
