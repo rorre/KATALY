@@ -22,7 +22,7 @@ const KeyboardRow: FunctionalComponent<KBRowProps> = ({
       {chars.split('').map((char, idx) => (
         <div
           key={`kb-${idx}`}
-          className={`font-sans px-2 py-1 text-3xl rounded select-none
+          className={`font-sans px-2 py-1 text-2xl rounded select-none
                       ${
                         disabledChars.indexOf(char) != -1
                           ? 'bg-gray-800 text-white'
@@ -69,7 +69,7 @@ export const Keyboard: FunctionalComponent<KBProps> = ({
         disabledChars={disabledChars}
       >
         <div
-          className="bg-gray-200 font-sans px-2 py-1 text-3xl rounded cursor-pointer select-none"
+          className="bg-gray-200 font-sans px-2 py-1 text-2xl rounded cursor-pointer select-none"
           onClick={() => onClick('ENTER')}
         >
           ↩
