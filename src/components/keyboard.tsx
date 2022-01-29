@@ -22,15 +22,13 @@ const KeyboardRow: FunctionalComponent<KBRowProps> = ({
       {chars.split('').map((char, idx) => (
         <div
           key={`kb-${idx}`}
-          className={`font-sans px-2 py-1 text-2xl rounded select-none
+          className={`font-sans px-2 py-1 text-2xl cursor-pointer rounded select-none
                       ${
                         disabledChars.indexOf(char) != -1
                           ? 'bg-gray-800 text-white'
-                          : 'bg-gray-200 cursor-pointer'
+                          : 'bg-gray-200'
                       }`}
-          onClick={() => {
-            disabledChars.indexOf(char) == -1 && onClick(char);
-          }}
+          onClick={() => onClick(char)}
         >
           {char}
         </div>
