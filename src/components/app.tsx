@@ -222,7 +222,9 @@ const App: FunctionalComponent = () => {
                     )
                   )}
 
-                {hasWon && <Result correctWord={correctWord} />}
+                {hasWon && (
+                  <Result correctWord={correctWord} attempts={attempts} />
+                )}
               </div>
 
               {!hasWon && (
