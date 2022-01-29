@@ -129,7 +129,9 @@ const App: FunctionalComponent = () => {
     document.addEventListener('keydown', onPhysKeyboard);
     const intervalCode = setInterval(() => {
       setNextWordTime(
-        baseDatetime.plus({ days: 1 }).diffNow(['hours', 'minutes', 'second'])
+        baseDatetime
+          .plus({ days: getDaysDifference() + 1 })
+          .diffNow(['hours', 'minutes', 'second'])
       );
     }, 1000);
 
