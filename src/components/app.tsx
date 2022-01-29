@@ -9,18 +9,12 @@ import { DateTime, Duration } from 'luxon';
 import Loader from './general/loader';
 
 import { Toaster, toast } from 'react-hot-toast';
+import { getDaysDifference } from '../utils';
+import Result from '../result';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   .split('')
   .concat(['BACKSPACE', 'ENTER']);
-
-const baseDatetime = DateTime.fromISO('2022-01-28T00:00:00.000+07:00');
-
-function getDaysDifference(): number {
-  const difference = baseDatetime.diffNow('days');
-  const days = Math.floor(Math.abs(difference.days));
-  return days;
-}
 
 const App: FunctionalComponent = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
@@ -32,7 +26,6 @@ const App: FunctionalComponent = () => {
   const [showModal, setShow] = useState(false);
   const [isBooting, setBooting] = useState(true);
   const [availableWords, setAvailableWords] = useState<string[]>([]);
-  const [nextWordTime, setNextWordTime] = useState(Duration.fromMillis(0));
 
   const validate = useCallback((): void => {
     if (current.length != 5 || hasWon) return;
@@ -128,33 +121,20 @@ const App: FunctionalComponent = () => {
   }, [isBooting]);
 
   useEffect(() => {
-    const days = getDaysDifference();
-
     if (!isBooting) {
+      const days = getDaysDifference();
       localStorage.setItem('attempts', JSON.stringify(attempts));
       localStorage.setItem('last', days.toString());
     }
+
+    if (attempts.length >= 6) setWon(true);
   }, [attempts]);
 
   useEffect(() => {
     document.addEventListener('keydown', onPhysKeyboard);
-    const intervalCode = setInterval(() => {
-      setNextWordTime(
-        baseDatetime
-          .plus({ days: getDaysDifference() + 1 })
-          .diffNow(['hours', 'minutes', 'second'])
-      );
-    }, 1000);
 
-    return (): void => {
-      document.removeEventListener('keydown', onPhysKeyboard);
-      clearInterval(intervalCode);
-    };
+    return (): void => document.removeEventListener('keydown', onPhysKeyboard);
   }, [onPhysKeyboard]);
-
-  useEffect(() => {
-    if (attempts.length >= 6) setWon(true);
-  }, [attempts]);
 
   return (
     <div id="preact_root">
@@ -242,26 +222,7 @@ const App: FunctionalComponent = () => {
                     )
                   )}
 
-                {hasWon && (
-                  <div className="flex flex-col text-center space-y-2">
-                    <h3 className="font-montserrat font-bold text-6xl text-white">
-                      {correctWord}
-                    </h3>
-                    <a
-                      href={`https://kbbi.kemdikbud.go.id/entri/${correctWord.toLowerCase()}`}
-                      className="text-blue-600 cursor-pointer font-assistant text-xl hover:underline"
-                    >
-                      Entri KBBI
-                    </a>
-                    <p className="font-sans text-white">
-                      Kata selanjutnya dalam
-                    </p>
-                    <p className="font-assistant text-xl font-bold text-white">
-                      {nextWordTime.hours}:{nextWordTime.minutes}:
-                      {Math.floor(nextWordTime.seconds)}
-                    </p>
-                  </div>
-                )}
+                {hasWon && <Result correctWord={correctWord} />}
               </div>
 
               {!hasWon && (
