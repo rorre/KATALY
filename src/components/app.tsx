@@ -8,6 +8,8 @@ import Modal from './general/modal';
 import { DateTime, Duration } from 'luxon';
 import Loader from './general/loader';
 
+import { Toaster, toast } from 'react-hot-toast';
+
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   .split('')
   .concat(['BACKSPACE', 'ENTER']);
@@ -29,11 +31,15 @@ const App: FunctionalComponent = () => {
   const [hasWon, setWon] = useState(false);
   const [showModal, setShow] = useState(false);
   const [isBooting, setBooting] = useState(true);
-
+  const [availableWords, setAvailableWords] = useState<string[]>([]);
   const [nextWordTime, setNextWordTime] = useState(Duration.fromMillis(0));
 
   const validate = useCallback((): void => {
     if (current.length != 5 || hasWon) return;
+    if (availableWords.indexOf(current) == -1) {
+      toast('Tidak ada dalam list kata.');
+      return;
+    }
     const copiedString = current.toUpperCase();
 
     const newDisabledChar: string[] = [];
@@ -52,7 +58,7 @@ const App: FunctionalComponent = () => {
       setAttempts((attempts) => [...attempts, copiedString]);
       setWon(current == correctWord);
     }, 500);
-  }, [current, correctWord, hasWon]);
+  }, [current, correctWord, hasWon, availableWords]);
 
   const onKeyboardClick = useCallback(
     (char: string): void => {
@@ -85,8 +91,13 @@ const App: FunctionalComponent = () => {
       const res = await fetch('/words.txt');
       if (res.status !== 200) throw Error();
 
-      const words = (await res.text()).split('\n');
-      setCorrectWord(words[days].toUpperCase());
+      const resAll = await fetch('/words-valid.txt');
+      if (resAll.status !== 200) throw Error();
+
+      const words = (await res.text()).toUpperCase().split('\n');
+      const validWords = (await resAll.text()).toUpperCase().split('\n');
+      setAvailableWords(validWords);
+      setCorrectWord(words[days]);
     }
     cb();
   }, []);
@@ -263,6 +274,7 @@ const App: FunctionalComponent = () => {
           </div>
         </div>
       </Loader>
+      <Toaster />
     </div>
   );
 };
