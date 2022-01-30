@@ -18,9 +18,9 @@ export const Box: FunctionalComponent<BoxProps> = ({
           flex items-center justify-center
           w-12 h-12 aspect-square
           text-white font-montserrat font-bold
-          ${char != ' ' && 'bg-gray-600'} 
           ${isCorrect && 'bg-green-600'} 
           ${isWrongPosition && 'bg-yellow-600'} 
+          ${char != ' ' && !isCorrect && !isWrongPosition && 'bg-gray-600'} 
           ${showAnswer && 'transition'}`}
   >
     {char}
