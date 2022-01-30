@@ -51,14 +51,14 @@ const Result: FunctionComponent<ResultProps> = ({ correctWord, attempts }) => {
   });
 
   return (
-    <div className="flex flex-col text-center space-y-2">
-      <h3 className="font-montserrat font-bold text-6xl text-white">
+    <div className="flex flex-col space-y-2 text-center">
+      <h3 className="font-montserrat text-6xl font-bold text-white">
         {correctWord}
       </h3>
 
       <a
         href={`https://kbbi.kemdikbud.go.id/entri/${correctWord.toLowerCase()}`}
-        className="text-blue-600 cursor-pointer font-assistant text-xl hover:underline"
+        className="cursor-pointer font-assistant text-xl text-blue-600 hover:underline"
       >
         Entri KBBI
       </a>
@@ -72,14 +72,14 @@ const Result: FunctionComponent<ResultProps> = ({ correctWord, attempts }) => {
       </div>
 
       <button
-        className="mx-8 py-2 text-xl bg-green-600 text-white cursor-pointer rounded-lg font-assistant"
+        className="mx-8 cursor-pointer rounded-lg bg-green-600 py-2 font-assistant text-xl text-white"
         onClick={() => share(false)}
       >
         <i className="fas fa-share-alt px-2" />
         Share
       </button>
       <button
-        className="mx-8 py-2 text-xl bg-blue-600 text-white cursor-pointer rounded-lg font-assistant"
+        className="mx-8 cursor-pointer rounded-lg bg-blue-600 py-2 font-assistant text-xl text-white"
         onClick={() => share(true)}
       >
         <i className="fas fa-copy px-2" />

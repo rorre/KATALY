@@ -20,7 +20,7 @@ const Modal: FunctionalComponent<ModalProps> = ({
   return (
     <div
       ref={outerModal}
-      className={`top-0 fixed left-0 bg-black bg-opacity-40 p-8 w-screen h-screen
+      className={`fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-40 p-8
                  px-4 sm:px-16 md:px-32 lg:px-64 
         ${show ? 'block opacity-100' : 'hidden opacity-0'}`}
       onClick={(event) => {
@@ -31,16 +31,16 @@ const Modal: FunctionalComponent<ModalProps> = ({
     >
       <div
         ref={innerModal}
-        className="relative w-full bg-gray-200 p-4 animate-[falling_0.4s] max-w-sm mx-auto"
+        className="relative mx-auto w-full max-w-sm animate-[falling_0.4s] bg-gray-200 p-4"
       >
         <span
-          className="top-2 right-3 text-4xl absolute cursor-pointer"
+          className="absolute top-2 right-3 cursor-pointer text-4xl"
           onClick={() => setShow(false)}
         >
           &times;
         </span>
         <div className="flex flex-col space-y-4">
-          <p className="font-sans font-bold text-lg">{title}</p>
+          <p className="font-sans text-lg font-bold">{title}</p>
           {children}
         </div>
       </div>

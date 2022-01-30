@@ -18,11 +18,11 @@ const KeyboardRow: FunctionalComponent<KBRowProps> = ({
   children,
 }) => {
   return (
-    <div className="flex flex-row space-x-1 justify-center">
+    <div className="flex flex-row justify-center space-x-1">
       {chars.split('').map((char, idx) => (
         <div
           key={`kb-${idx}`}
-          className={`font-sans px-2 py-1 text-2xl cursor-pointer rounded select-none
+          className={`cursor-pointer select-none rounded px-2 py-1 font-sans text-2xl
                       ${
                         disabledChars.indexOf(char) != -1
                           ? 'bg-gray-800 text-white'
@@ -43,7 +43,7 @@ export const Keyboard: FunctionalComponent<KBProps> = ({
   onClick,
 }) => {
   return (
-    <div className="w-full bg-gray-400 flex flex-col p-4 rounded-t-md space-y-1">
+    <div className="flex w-full flex-col space-y-1 rounded-t-md bg-gray-400 p-4">
       <KeyboardRow
         chars="QWERTYUIOP"
         onClick={onClick}
@@ -55,7 +55,7 @@ export const Keyboard: FunctionalComponent<KBProps> = ({
         disabledChars={disabledChars}
       >
         <div
-          className="bg-gray-200 font-sans px-2 py-1 text-2xl rounded cursor-pointer select-none"
+          className="cursor-pointer select-none rounded bg-gray-200 px-2 py-1 font-sans text-2xl"
           onClick={() => onClick('BACKSPACE')}
         >
           ⌫
@@ -67,7 +67,7 @@ export const Keyboard: FunctionalComponent<KBProps> = ({
         disabledChars={disabledChars}
       >
         <div
-          className="bg-gray-200 font-sans px-2 py-1 text-2xl rounded cursor-pointer select-none"
+          className="cursor-pointer select-none rounded bg-gray-200 px-2 py-1 font-sans text-2xl"
           onClick={() => onClick('ENTER')}
         >
           ↩

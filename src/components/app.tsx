@@ -183,17 +183,17 @@ const App: FunctionalComponent = () => {
           </a>
         </Modal>
 
-        <div className="bg-gray-800 w-screen h-screen">
-          <div className="max-w-sm flex flex-col space-y-2 items-center justify-center mx-auto h-full">
-            <div className="flex flex-row justify-between w-full items-center p-4">
+        <div className="h-screen w-screen bg-gray-800">
+          <div className="mx-auto flex h-full max-w-sm flex-col items-center justify-center space-y-2">
+            <div className="flex w-full flex-row items-center justify-between p-4">
               <h3 className="font-montserrat text-2xl text-white">KATALY</h3>
               <i
-                class="fas fa-info-circle fa-lg text-white cursor-pointer"
+                class="fas fa-info-circle fa-lg cursor-pointer text-white"
                 onClick={(): void => setShow(true)}
               />
             </div>
-            <div className="flex flex-col justify-between h-full">
-              <div className="w-full flex-col flex space-y-4">
+            <div className="flex h-full flex-col justify-between">
+              <div className="flex w-full flex-col space-y-4">
                 {attempts.map((attempt, idx) => (
                   <Row
                     word={attempt}

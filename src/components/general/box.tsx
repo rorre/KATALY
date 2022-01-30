@@ -14,10 +14,10 @@ export const Box: FunctionalComponent<BoxProps> = ({
   isWrongPosition = false,
 }) => (
   <div
-    className={`border border-gray-600 rounded-md
-          flex items-center justify-center
-          w-12 h-12 aspect-square
-          text-white font-montserrat font-bold
+    className={`flex aspect-square h-12
+          w-12 items-center justify-center
+          rounded-md border border-gray-600
+          font-montserrat font-bold text-white
           ${isCorrect && 'bg-green-600'} 
           ${isWrongPosition && 'bg-yellow-600'} 
           ${char != ' ' && !isCorrect && !isWrongPosition && 'bg-gray-600'} 

@@ -19,7 +19,7 @@ const Loader: FunctionalComponent<LoaderProps> = ({ children }) => {
     <Fragment>
       <div
         className={
-          'w-screen h-screen bg-gray-800 z-50 fixed top-0 left-0  ' +
+          'fixed top-0 left-0 z-50 h-screen w-screen bg-gray-800  ' +
           'flex flex-col items-center justify-center transition-opacity duration-300 ' +
           (isLoading ? 'opacity-100 ' : 'opacity-0 ') +
           (isGone && 'hidden')
@@ -28,7 +28,7 @@ const Loader: FunctionalComponent<LoaderProps> = ({ children }) => {
         <i class="fas fa-circle-notch fa-3x animate-spin text-white" />
       </div>
       <div
-        className={'z-0 ' + (isLoading && 'w-screen h-screen overflow-hidden')}
+        className={'z-0 ' + (isLoading && 'h-screen w-screen overflow-hidden')}
       >
         {children}
       </div>

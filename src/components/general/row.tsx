@@ -14,7 +14,7 @@ export const Row: FunctionalComponent<RowProps> = ({
   showAnswer = false,
 }) => {
   return (
-    <div className="flex flex-row space-x-4 justify-center">
+    <div className="flex flex-row justify-center space-x-4">
       {word
         .padEnd(5)
         .split('')
