@@ -2,7 +2,7 @@ import { Duration } from 'luxon';
 import { FunctionComponent, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import toast from 'react-hot-toast';
-import { baseDatetime, getDaysDifference } from './utils';
+import { baseDatetime, getDaysDifference } from '../utils';
 
 interface ResultProps {
   attempts: string[];

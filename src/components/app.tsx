@@ -10,7 +10,7 @@ import Loader from './general/loader';
 
 import { Toaster, toast } from 'react-hot-toast';
 import { getDaysDifference } from '../utils';
-import Result from '../result';
+import Result from './result';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   .split('')
