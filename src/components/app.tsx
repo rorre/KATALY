@@ -139,7 +139,7 @@ const App: FunctionalComponent = () => {
   return (
     <div id="preact_root">
       <Loader>
-        <Modal title="Information" show={showModal} setShow={setShow}>
+        <Modal title="Informasi" show={showModal} setShow={setShow}>
           <p className="text-center font-assistant">
             Kataly adalah permainan{' '}
             <a
@@ -166,7 +166,7 @@ const App: FunctionalComponent = () => {
             posisinya salah.
           </p>
 
-          <h3 className="font-assistant font-bold">Attribusi</h3>
+          <h3 className="font-assistant font-bold">Atribusi</h3>
           <p className="font-assistant">
             Kata-kata yang didapat berasal dari{' '}
             <a
