@@ -9,7 +9,7 @@ import { DateTime, Duration } from 'luxon';
 import Loader from './general/loader';
 
 import { Toaster, toast } from 'react-hot-toast';
-import { getDaysDifference } from '../utils';
+import { getDaysDifference, getDisabledChars } from '../utils';
 import Result from './result';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -35,14 +35,10 @@ const App: FunctionalComponent = () => {
     }
     const copiedString = current.toUpperCase();
 
-    const newDisabledChar: string[] = [];
-    for (let i = 0; i < current.length; i++) {
-      const currentChar = current[i];
-      if (correctWord.indexOf(currentChar) == -1) {
-        newDisabledChar.push(currentChar);
-      }
-    }
-    setDisabledChars((disabledChars) => [...disabledChars, ...newDisabledChar]);
+    setDisabledChars((disabledChars) => [
+      ...disabledChars,
+      ...getDisabledChars(correctWord, current),
+    ]);
 
     setShowAnswer(true);
     setTimeout(() => {
@@ -109,6 +105,14 @@ const App: FunctionalComponent = () => {
         if (lastCurrent != '') {
           setCurrent(lastCurrent);
         }
+
+        const disabledAttemptedChars: string[] = [];
+        for (let attempt of lastAttempts) {
+          disabledAttemptedChars.push(
+            ...getDisabledChars(correctWord, attempt)
+          );
+        }
+        setDisabledChars(disabledAttemptedChars);
       } else {
         setAttempts([]);
       }
@@ -183,8 +187,8 @@ const App: FunctionalComponent = () => {
           </a>
         </Modal>
 
-        <div className="h-screen w-screen bg-gray-800">
-          <div className="mx-auto flex h-full max-w-sm flex-col items-center justify-center space-y-2">
+        <div className="h-screen w-screen max-w-full bg-gray-800">
+          <div className="mx-auto flex h-full max-w-xs flex-col items-center justify-center space-y-2">
             <div className="flex w-full flex-row items-center justify-between p-4">
               <h3 className="font-montserrat text-2xl text-white">KATALY</h3>
               <i

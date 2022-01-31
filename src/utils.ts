@@ -8,4 +8,15 @@ function getDaysDifference(): number {
   return days;
 }
 
-export { getDaysDifference, baseDatetime };
+function getDisabledChars(correctWord: string, answer: string) {
+  const newDisabledChar: string[] = [];
+  for (let i = 0; i < answer.length; i++) {
+    const currentChar = answer[i];
+    if (correctWord.indexOf(currentChar) == -1) {
+      newDisabledChar.push(currentChar);
+    }
+  }
+  return newDisabledChar;
+}
+
+export { getDaysDifference, getDisabledChars, baseDatetime };
