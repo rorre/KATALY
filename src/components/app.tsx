@@ -182,9 +182,14 @@ const App: FunctionalComponent = () => {
             yang berada di bawah lisensi CC-BY-NC-SA 3.0.
           </p>
 
-          <a href="https://twitter.com/ro_rre" className="text-center">
-            <i class="fab fa-3x fa-twitter text-gray-500 hover:text-blue-500" />
-          </a>
+          <div className="flex flex-row justify-center space-x-2">
+            <a href="https://twitter.com/ro_rre" className="text-center">
+              <i class="fab fa-3x fa-twitter text-gray-500 hover:text-blue-500" />
+            </a>
+            <a href="https://github.com/rorre/KATALY" className="text-center">
+              <i class="fab fa-3x fa-github text-gray-500 hover:text-blue-500" />
+            </a>
+          </div>
         </Modal>
 
         <div className="h-screen w-screen max-w-full bg-gray-800">
